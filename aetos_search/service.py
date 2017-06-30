@@ -1,11 +1,11 @@
-from .coordinator import SearchCoordinator
 from common_utils.mongo_utils import serialize_document
+from common_utils.coordinator import MongoCoordinator
 
 
 class SearchService(object):
 
     def __init__(self):
-        self.coordinator = SearchCoordinator()
+        self.coordinator = MongoCoordinator()
 
     def get_from_mongo(self, query):
         result = self.coordinator.find_many(query)
