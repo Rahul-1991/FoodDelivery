@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aetos_search',
+    'aetos_addOrRemove',
     'rest_framework'
 ]
 
