@@ -15,7 +15,7 @@ class MongoConnection(object):
         return self.mongo_client.FoodDelivery
 
     def add_data(self, data):
-        self.mongo_db.collection.insert(data)
+        self.mongo_db.delivery_model.insert(data)
 
 
 class PopulateData(object):
