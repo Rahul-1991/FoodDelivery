@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from datetime import datetime
 
 
 class MongoConnection(object):
@@ -15,7 +16,7 @@ class MongoConnection(object):
         return self.mongo_client.FoodDelivery
 
     def add_data(self, data):
-        self.mongo_db.collection.insert(data)
+        self.mongo_db.delivery_model.insert(data)
 
 
 class PopulateData(object):
@@ -31,9 +32,18 @@ class PopulateData(object):
         return self.file_content[0].strip('\xef\xbb\xbf\n').split('\t')
 
     def prepare_document(self, record):
+        processed_document = dict()
         columns = record.strip().split('\t')
         headers = self.get_headers()
-        return {header: columns[index] for index, header in enumerate(headers)}
+        for index, header in enumerate(headers):
+            if header == 'Addr_Date_Create' or header == 'Addr_Date_Modified':
+                try:
+                    processed_document[header] = datetime.strptime(columns[index], '%m/%d/%Y %H:%M:%S %p')
+                except Exception as e:
+                    pass
+            else:
+                processed_document[header] = columns[index]
+        return processed_document
 
     def insert_record_to_db(self, record):
         self.mongo_conn.add_data(record)
@@ -41,7 +51,7 @@ class PopulateData(object):
     def main(self):
         for index, record in enumerate(self.file_content):
             if not index:  # skip header row
-                pass
+                continue
             processed_document = self.prepare_document(record)
             self.insert_record_to_db(processed_document)
 
