@@ -20,3 +20,9 @@ class StreetSearch(APIView):
         return JsonResponse(data={'s': 1, 'm': 'Street Search Result', 'd': result_set}, status=HTTP_200_OK)
 
 
+class ExpiredPermitsSearch(APIView):
+
+    def get(self, request):
+        result_set = SearchService().get_expired_permits()
+        return JsonResponse(data={'s': 1, 'm': 'Expired Permit Results', 'd': result_set}, status=HTTP_200_OK)
+
