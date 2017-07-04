@@ -8,6 +8,11 @@ This project is powered by the **Django** web framework of python.
 ##### Data Storage
 The backend database is hosted on **MongoDb** which is a NoSQL database storing the information about the truck of the delivery system.
 
+##### Data Population in mongoDB
+```
+python populate_data.py
+```
+
 ##### Installing instructions
 1. Creating Virtual Environment
     ```
