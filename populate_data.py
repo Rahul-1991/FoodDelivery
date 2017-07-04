@@ -36,6 +36,10 @@ class PopulateData(object):
         columns = record.strip().split('\t')
         headers = self.get_headers()
         for index, header in enumerate(headers):
+            if header == 'Addr_Date_Create':
+                processed_document['created_at'] = columns[index]
+            if header == 'Addr_Date_Modified':
+                processed_document['modified_at'] = columns[index]
             if header == 'Addr_Date_Create' or header == 'Addr_Date_Modified':
                 try:
                     processed_document[header] = datetime.strptime(columns[index], '%m/%d/%Y %H:%M:%S %p')
