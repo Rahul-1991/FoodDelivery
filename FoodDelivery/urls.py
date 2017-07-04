@@ -18,6 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^search/', include('aetos_search.urls'))
+    url(r'^search/', include('aetos_search.urls')),
+    url(r'^truck/', include('aetos_addOrRemove.urls')),
+    url(r'^', include('aetos_misc.urls'))
 
 ]
